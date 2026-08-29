@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Tareas - Cloud Computing</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: 40px auto; background: #f4f6f8; }
+        h1 { color: #2c3e50; }
+        form { display: flex; gap: 8px; margin-bottom: 20px; }
+        input[type=text] { flex: 1; padding: 10px; border: 1px solid #ccc; border-radius: 6px; }
+        button { padding: 10px 16px; border: none; border-radius: 6px; background: #2980b9; color: white; cursor: pointer; }
+        ul { list-style: none; padding: 0; }
+        li { background: white; padding: 12px; margin-bottom: 8px; border-radius: 6px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .done { text-decoration: line-through; color: #999; }
+        .actions a { margin-left: 10px; text-decoration: none; color: #555; }
+        .badge { font-size: 12px; color: #888; margin-top: 30px; text-align: center; }
+    </style>
+</head>
+<body>
+    <h1>📋 Lista de Tareas</h1>
+    <form action="/add" method="post">
+        <input type="text" name="title" placeholder="Nueva tarea..." required>
+        <button type="submit">Agregar</button>
+    </form>
+    <ul>
+        {% for task in tasks %}
+        <li>
+            <span class="{{ 'done' if task.done else '' }}">{{ task.title }}</span>
+            <span class="actions">
+                <a href="/toggle/{{ task.id }}">✅</a>
+                <a href="/delete/{{ task.id }}">🗑️</a>
+            </span>
+        </li>
+        {% else %}
+        <li>No hay tareas todavía.</li>
+        {% endfor %}
+    </ul>
+    <p class="badge">Desplegado en la nube — Actividad Semana 3: Cloud Computing</p>
+</body>
+</html>
